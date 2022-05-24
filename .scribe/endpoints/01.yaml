@@ -1,0 +1,113 @@
+name: Checkout
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/getcost
+    metadata:
+      title: 'Shipping Cost'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      pincode:
+        name: pincode
+        description: Pincode
+        required: false
+        example: vel
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "success": true,
+           "title": "",
+           "message": "",
+           "data": {}
+
+          }
+        headers: []
+        description: '200'
+      -
+        status: 400
+        content: |-
+          {
+           "success": false,
+           "title": "",
+           "message": "",
+           "data": {}
+          }
+        headers: []
+        description: '400'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/getpromocode
+    metadata:
+      title: PromoCode
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: PromoCode
+        required: false
+        example: eaque
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "success": true,
+           "title": "Hurrey",
+           "message": "We are there to service",
+           "data": {}
+          }
+        headers: []
+        description: '200'
+      -
+        status: 200
+        content: |-
+          {
+           "success": false,
+           "title": "Sorry",
+           "message": "We dont serve the selected pincode.",
+           "data": {}
+          }
+        headers: []
+        description: '200'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/getaddress
+    metadata:
+      title: Address
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []

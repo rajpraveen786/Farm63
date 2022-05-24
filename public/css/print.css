@@ -1,0 +1,31 @@
+
+:root {
+    --headerH: 100px;
+}
+#tableprint {
+    height: 1550px;
+    padding: 2rem;
+    page-break-after: always;
+    position: relative;
+}
+.header{
+    position: fixed;
+    padding: 0.5rem 2rem;
+    height: var(--headerH);
+    top: 0;right: 0;left: 0;
+}
+.footer {
+    position: fixed;
+    padding: 0.5rem 2rem;
+    height: var(--headerH);
+    bottom: 0;right: 0;left: 0;
+}
+.invoice {
+    position: relative; top: 50px;
+x
+}
+.breakrow:nth-of-type(20n){
+    page-break-after: always;
+}
+/* .breakrow:nth-of-type(21n){
+} */

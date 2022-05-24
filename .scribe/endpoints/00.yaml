@@ -1,0 +1,266 @@
+name: Authentication
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/login
+    metadata:
+      title: Login.
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: beimqznhfpncduopkeagurgwzfzldrtxmukmivrixqsxduxddtlsyjhviitpabdtchfnaxqueyszivckmpfsnsfbzoegixfeksmblawlko
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: midvhwyqztx
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "success": true,
+           "message": "Sucess",
+           "data": {
+                   "id":"1",
+                   "name":"xxxxxx",
+                   "email":"xxxxxx@gmail.com",
+                   "phno":"88xxxxxxx1",
+                   "token":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+               }
+          }
+        headers: []
+        description: '200'
+      -
+        status: 400
+        content: |-
+          {
+           "success": false,
+           "message": "Validation error",
+           "errors": {
+                   "email":["error"],
+                   "password":["error"],
+               }
+          }
+        headers: []
+        description: '400'
+      -
+        status: 401
+        content: |-
+          {
+           "success": false,
+           "message": "User Not Found",
+           "errors": {
+                   "email":["error"],
+                   "password":["error"],
+               }
+          }
+        headers: []
+        description: '401'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/register
+    metadata:
+      title: Regsiter
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: bbwhrwvfamzeohzwouydcmlnfjdrxldkkiauleucfeazrwiuqudcqbfhjfvogrzbdocgueqqqotacntkfdsqatuafvaecyfgtfrlwaboxrsiseuwdxdsvzslzbrtbwzatarbneykavhghlrvuldodpguuvpt
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: scottie12@example.com
+        type: string
+        custom: []
+      phno:
+        name: phno
+        description: 'Must be 10 digits.'
+        required: true
+        example: '4465740158'
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'Must be at least 7 characters.'
+        required: true
+        example: ccyhaeo
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "success": true,
+           "message": "Sucess",
+           "data": {
+                   "id":"1",
+                   "name":"xxxxxx",
+                   "email":"xxxxxx@gmail.com",
+                   "phno":"88xxxxxxx1",
+                   "token":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+               }
+          }
+        headers: []
+        description: '200'
+      -
+        status: 400
+        content: |-
+          {
+           "success": false,
+           "message": "Validation error",
+           "errors": {
+                   "email":["error"],
+                   "password":["error"],
+               }
+          }
+        headers: []
+        description: '400'
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/otpverify
+    metadata:
+      title: 'OTP Verify'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      OTP:
+        name: OTP
+        description: 'OTP Code'
+        required: false
+        example: consequatur
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "error": 0,
+          }
+        headers: []
+        description: '200'
+      -
+        status: 401
+        content: |-
+          {
+           "error": 1,
+           "errordata": "Message/Incorrect OTP",
+          }
+        headers: []
+        description: '401'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/otpresend
+    metadata:
+      title: 'OTP Resend'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      UID:
+        name: UID
+        description: 'User ID'
+        required: false
+        example: omnis
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "error": 0,
+          }
+        headers: []
+        description: '200'
+      -
+        status: 401
+        content: |-
+          {
+           "error": 1,
+           "errordata": "Message/Incorrect OTP",
+          }
+        headers: []
+        description: '401'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/logout
+    metadata:
+      title: 'Log out'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "success": true,
+           "message": "Logout Successfully",
+        headers: []
+        description: '200'
+      -
+        status: 401
+        content: |-
+          {
+           "success": false,
+           "message": "Unable to Logout",
+          }
+        headers: []
+        description: '401'
+    responseFields: []
