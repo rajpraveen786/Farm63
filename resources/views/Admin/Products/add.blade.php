@@ -164,6 +164,14 @@
                             </select>
                         </div>
                         <hr>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select name="type" class="form-control" id="type">
+                                <option @if(old('type') && old('type')==0) selected @else selected @endif value="0">Product</option>
+                                <option @if(old('type') && old('type')==1) selected @endif value="1">Combo</option>
+                            </select>
+                        </div>
+                        <hr>
                         <adminproductcategory :data="{{ json_encode($category) }}" :olddataid="{{ json_encode(old('cid')??'') }}" :oldsubdataid="{{ json_encode(old('scid')??'') }}"></adminproductcategory>
                         <hr>
                         <selectval :data="{{ json_encode($brand) }}" :title="{{ json_encode('Brand') }}" :label="{{ json_encode('name') }}" :formname="{{ json_encode('bid') }}" :olddataid="{{ json_encode(old('bid')??'') }}"></selectval>

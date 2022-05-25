@@ -136,5 +136,14 @@ class SEODB extends Seeder
         $data->title='Contact Us';
         $data->desc='Contact Us';
         $data->save();
+
+
+        //Contact US
+        $data=new ModelSEO();
+        $data->page='ComboProducts';
+        $data->title='Combo Products';
+        $data->desc='Combo Products';
+        $data->save();
+
     }
 }

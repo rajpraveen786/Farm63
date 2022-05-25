@@ -45,6 +45,17 @@
     </a>
 </div>
 @endif
+
+@if($comboproduct->count())
+<div class="container position-relative" style="margin: 5vh auto;">
+    <div class="float-right"><a href="/comboproducts" class="btn link-success text-success font-weight-bold"> View More</a></div>
+    <h4 class="after  font-weight-bold font-prim text-capitalise">Combo Prodcuts</h4>
+    <div class="bg-bluee py-2">
+        <mscarousel carid="comboproduct" :data="{{ json_encode($comboproduct) }}" :user="{{ json_encode(Auth::user()??'') }}"></mscarousel>
+    </div>
+</div>
+@endif
+
 @if($category->count())
 <div class="bg-bluee" style="padding: 5vh 1vh">
     <div class="container position-relative p-2">

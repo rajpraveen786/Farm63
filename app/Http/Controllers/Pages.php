@@ -69,7 +69,7 @@ class Pages extends Controller
         if ($request->searchname) {
             $data = $data->where(function ($q) use ($name) {
                 foreach ($name as $taags) {
-                    $q->where('name', 'LIKE', '%' . $taags . '%');
+                    $q->orWhere('name', 'LIKE', '%' . $taags . '%');
                 }
             });
             if (count($category) > 0) {
@@ -178,7 +178,7 @@ class Pages extends Controller
         if ($request->searchname) {
             $data = $data->where(function ($q) use ($name) {
                 foreach ($name as $taags) {
-                    $q->where('name', 'LIKE', '%' . $taags . '%');
+                    $q->orWhere('name', 'LIKE', '%' . $taags . '%');
                 }
             });
             if (count($category) > 0) {
@@ -570,7 +570,29 @@ class Pages extends Controller
     {
 
 
+        // $apiKey = urlencode('MzY2ZDY0Mzc3NzY3NDI3MDM0NTI1NTQ5NGUzMTRlNTg=');
 
+        // // Message details
+        // $numbers = array(918825867354);
+        // $sender = urlencode('BCTNPY');
+        // $message = rawurlencode('Dear Praveen raj, Defect in your stipend application contact barcouncil office immedately by Bar Council of Tamilnadu and Puducherry.');
+
+        // $numbers = implode(',', $numbers);
+
+        // // Prepare data for POST request
+        // $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+
+        // // Send the POST request with cURL
+        // $ch = curl_init('https://api.textlocal.in/send/');
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // $response = curl_exec($ch);
+        // curl_close($ch);
+
+        // // Process your response here
+        // echo $response;
+        // return ;
         $banner = Banner::select('name', 'desc', 'link', 'loc')->get();
         $category = Category::select('banner', 'name', 'loc', 'id')->withCount('products')->with('subcategory')->take(7)->get();
         $brand = Brand::where('status', 1)->select('banner', 'id', 'name', 'loc')->withCount('products')->orderBy('products_count', 'desc')->take(10)->get();
@@ -714,9 +736,13 @@ class Pages extends Controller
     public function quicksearch(Request $request)
     {
 
-        $name = $request->named;
+        $name = explode(' ', $request->name);
         $data = $this->productwithreview()
-            ->where('name', 'LIKE', '%' . $name . '%');
+        ->where(function ($q) use ($name) {
+            foreach ($name as $taags) {
+                $q->where('name', 'LIKE', '%' . $taags . '%');
+            }
+        });
         $data = $data->take(5)->get();
 
         return response()->json([
@@ -788,6 +814,16 @@ class Pages extends Controller
         return view('Pages.genproductpage', ['data' => $data, 'title' => 'New Products']);
     }
 
+    public function comboproducts(Request $request)
+    {
+
+        $data =  $this->productwithreview()
+        ->where('type',1)
+        ->get();
+    $seo = SEO::where('page', 'ComboProducts')->first();
+    $this->setSEO($seo->title ?? '', $seo->desc ?? '', '/comboproducts');
+    return view('Pages.genproductpage', ['data' => $data, 'title' => 'Combo Products']);
+    }
     public function topselling(Request $request)
     {
 

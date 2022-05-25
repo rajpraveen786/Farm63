@@ -29,6 +29,6 @@ class OrderRefund extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order Refunded')->markdown('emails.orders.refund');
+        return $this->subject('Order Refunded - '.$this->data->invno)->markdown('emails.orders.refund');
     }
 }

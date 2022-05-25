@@ -29,6 +29,6 @@ class NewOrder extends Mailable
      */
     public function build()
     {
-        return $this->subject('New Order')->markdown('emails.orders.new');
+        return $this->subject('New Order - '.$this->data->invno)->markdown('emails.orders.new');
     }
 }

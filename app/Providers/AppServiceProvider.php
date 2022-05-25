@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
             'packingid',
             'tags',
             'oosc',
+            'products.type',
             'trackqty',
             'products.status as status',
         )->with('image')
@@ -84,7 +85,6 @@ class AppServiceProvider extends ServiceProvider
                 $wishcount=0;
             }
 
-
             // $cartcount=Auth::user() ? Cart::where('uid',Auth::user()->id)->count():0;
             // $wishcount=Auth::user() ? WishList::where('uid',Auth::user()->id)->count():0;
             $view->with('cartcount', $cartcount);
@@ -96,6 +96,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer(['Pages.welcome','newproducts','Pages.Productview','noproductfound'], function ($view) {
 
+            $comboproduct=$this->productwithreview()->where('type',1)->get();
 
             $custinter=CustomerInteraction::where('type','prodview')->distinct('data')->orderBy('created_at','desc')->pluck('data');
             $trendingproducts=$this->productwithreview()
@@ -115,15 +116,15 @@ class AppServiceProvider extends ServiceProvider
             $view->with('topselling', $topselling);
 
             $newproducts = $this->productwithreview()
-                ->orderBy('products.created_at', 'desc')
-                ->take(10)->get();
+            ->orderBy('products.created_at', 'desc')
+            ->take(10)->get();
             $topdeals=$this->productwithreview()->
-                where('disid','!=',0)->
-                orderBy('disp','desc')->get();
+            where('disid','!=',0)->
+            orderBy('disp','desc')->get();
 
             $view->with('newproducts', $newproducts);
             $view->with('topdeals', $topdeals);
-
+            $view->with('comboproduct', $comboproduct);
         });
     }
 
@@ -134,8 +135,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (env('APP_ENV') !== 'local') {
-            \URL::forceScheme('https');
-        }
+            // if (env('APP_ENV') !== 'local') {
+            //     \URL::forceScheme('https');
+            // }
     }
 }

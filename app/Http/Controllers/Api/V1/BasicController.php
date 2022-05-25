@@ -526,6 +526,51 @@ class BasicController extends Controller
             'data' => $wishlist,
         ], 200);
     }
+
+    public function wishliststore(Request $request)
+    {
+        $user = $request->user();
+        $title = '';
+        $message = '';
+        $success = '';
+        if ($user) {
+            $data = WishList::where('uid', $user->id)->where('pid', $request->pid)->count();
+            $title = '';
+            $message = '';
+            $success = '';
+            if ($data > 0) {
+                $title = 'Oopss';
+                $message = 'Product Already in Wishlist';
+                $success = false;
+            } else {
+                $data = new WishList;
+                $data->uid =$user->id;
+                $data->pid = $request->pid;
+                $data->save();
+                $title = 'Hurrey';
+                $message = 'Added to Wishlist Successfully';
+                $success = true;
+            }
+        }
+        $wishlistc = WishList::where('uid', $user->id)->where('pid', $request->pid)->count();
+
+
+        if (strlen($title) <= 0) {
+            $title = 'Oops';
+            $message = 'Item Already present in Wishlist';
+            $success = false;
+        }
+
+
+        $count = $wishlistc;
+        return response()->json([
+            'success' => $success,
+            'title' => $title,
+            'message' => $message,
+            'count' => $count,
+        ], 200);
+    }
+
     /**
      * @group Checkout
      * PromoCode

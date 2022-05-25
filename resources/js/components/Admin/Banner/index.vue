@@ -6,12 +6,7 @@
       <div class="col-sm-12 mt-2 col-md-6">
         <div class="form-group">
           <label for="linkt">Link</label>
-          <select
-            v-model="linkt"
-            class="form-control"
-            v-on:change="sellink"
-            id="linkt"
-          >
+          <select v-model="linkt" class="form-control" v-on:change="sellink" id="linkt">
             <option value="0">None</option>
             <option value="1">Hot Deals</option>
             <!-- <option value="2">New Products</option> -->
@@ -22,10 +17,7 @@
           </select>
         </div>
       </div>
-      <div
-        class="col-md-6 mt-2 col-sm-12"
-        v-if="opts != null && opts.length > 0"
-      >
+      <div class="col-md-6 mt-2 col-sm-12" v-if="opts != null && opts.length > 0">
         <label for="">Sub Links</label>
         <v-select
           class="bg-white"
@@ -49,16 +41,16 @@
 
 <script>
 export default {
-  props: ["oldoptsel", "oldlinkt", "category", "brand","products"],
+  props: ["oldoptsel", "oldlinkt", "category", "brand", "products"],
   mounted() {
-      this.sellinkvalue();
-      for (var i = 0; i < this.opts.length; i++) {
-        if (this.opts[i].id == this.oldoptsel) {
-          this.optsel = this.opts[i].id;
-          this.optsels = this.opts[i].name;
-          this.link += "/" + this.opts[i].name;
-        }
+    this.sellinkvalue();
+    for (var i = 0; i < this.opts.length; i++) {
+      if (this.opts[i].id == this.oldoptsel) {
+        this.optsel = this.opts[i].id;
+        this.optsels = this.opts[i].name;
+        this.link += "/" + this.opts[i].name;
       }
+    }
   },
   data() {
     return {
@@ -68,9 +60,7 @@ export default {
       opts: null,
       optsels: [],
       optsel: this.oldoptsel,
-      csrf: document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content"),
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
       capacity: [""],
     };
   },
@@ -80,9 +70,9 @@ export default {
       this.sellinkvalue();
       if (code) {
         this.optsel = code.id;
-        this.optsels = code.name;
+        this.optsels = code.urlslug;
         if (code.id) {
-          this.link += "/" + code.name;
+          this.link += "/" + code.urlslug;
         }
       } else {
         this.optsel = null;

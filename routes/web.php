@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\Orders;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/mailable', function () {
+    $data=Orders::with('ordersub')->first();
+    // $data='123123';
+    return new App\Mail\OrderShipped($data);
+});
 
 Route::get('/unsubscribe/{data}', 'Customer@unsubscribe');
 Route::post('/getcost', 'Pages@getcost');
@@ -43,6 +50,7 @@ Route::group(['middleware' => ['emptycart']], function () {
     Route::get('/newproducts', 'Pages@newproducts');
     Route::get('/trendingproducts', 'Pages@trendingproducts');
     Route::get('/topselling', 'Pages@topselling');
+    Route::get('/comboproducts', 'Pages@comboproducts');
     Route::get('/allproducts', 'Pages@allproducts');
 
     Route::get('/search', 'Pages@mssearch');

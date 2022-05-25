@@ -143,6 +143,7 @@
                                     <input
                                       min="1"
                                       placeholder="1"
+                                      v-on:change="changeqty(index,0)"
                                       v-model="prod.qty[index]"
                                       id="cart-value"
                                       class="value"
@@ -223,7 +224,7 @@
                         </a>
                         <!-- <div><i class="fas text-success fa-check-circle" style="transform: scale(0.8);"></i> In Stock <span class="text-muted"> - 1kg</span></div> -->
                         <div class="price">
-                            <span class="price-old" v-if="itemx.disp > 0">Rs. {{ itemx.fpricebefdis||'123' }}</span
+                            <span class="price-old" v-if="itemx.disp > 0">Rs. {{ itemx.fpricebefdis||'' }}</span
                                 >
                                 <span class="price-new font-prim">Rs. {{ itemx.fpricewtas }}</span>
                         </div>
@@ -321,8 +322,8 @@
         },
         methods: {
             changeqty(index, val) {
-                if (this.prod.qty[index] + val > 0) {
-                    this.$set(this.prod.qty, index, this.prod.qty[index] + val);
+                if (parseInt(this.prod.qty[index]) + val > 0) {
+                    this.$set(this.prod.qty, index, parseInt(this.prod.qty[index]) + val);
                     this.calctotal();
                 }
             },

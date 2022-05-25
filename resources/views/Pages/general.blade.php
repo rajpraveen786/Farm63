@@ -15,7 +15,6 @@
         background:linear-gradient(0deg, rgba(3, 175, 26, 0.3), rgba(3, 175, 26, 0.3)), url(/storage/img/greencrop.jpg); height: 30vh;">
         </div>
         <div class="col-12 p-lg-5">
-            <h6 class="text-muted text-uppercase mb-2">Agreement</h6>
             <h3 class="font-prim font-weight-bold mb-3" style="font-weight:900">{{ $title }}</h3>
             <hr>
             <descview class="" :content="{{json_encode($data->desc)}}"></descview>

@@ -17,19 +17,19 @@
 </table>
 
 <div style="padding: 0 32px">
-    @component('mail::table')
-    | <span style="color: green"> Name</span> | <span style="color: green"> Qty</span> | <span style="color: green"> Cost</span> |
-    | :------------- |-------------:| --------:|
-    @for($i=0;$i<$data->ordersub->count();$i++)
-        | {{ $data->ordersub[$i]->name }} | {{ $data->ordersub[$i]->qty }} | Rs. {{ $data->ordersub[$i]->subcost}} |
-        @endfor
-        | | Shipping | Rs. {{ $data->shipping}} |
-        | | <span style="color: green; font-weight: bold"> Total</span> | <span style="font-weight: bold"> Rs. {{ $data->total}} </span> |
+@component('mail::table')
+|<span style="color: green"> Name</span> | <span style="color: green"> Qty</span> | <span style="color: green"> Cost</span> |
+|:------------- |-------------:| --------:|
+@for($i=0;$i<$data->ordersub->count();$i++)
+|{{ $data->ordersub[$i]->name }} | {{ $data->ordersub[$i]->qty }} | Rs. {{ $data->ordersub[$i]->subcost}} |
+@endfor
+| | Shipping | Rs. {{ $data->shipping}} |
+| | <span style="color: green; font-weight: bold"> Total</span> | <span style="font-weight: bold"> Rs. {{ $data->total}} </span> |
         @endcomponent
 </div>
 
 <div style="font-size: 0.8em; padding: 0px 32px 32px 32px">
-    Click <a href="https://farm63.com/profile/orders" style="margin: auto 0.35rem;color: green; font-weight: bold; font-size: 1.2em; text-decoration: underline rgba(0, 255, 0, 0.5)">HERE</a> to view complete details. <br><br>
+    Click <a href="{{ env('APP_URL') }}/profile/orders" style="margin: auto 0.35rem;color: green; font-weight: bold; font-size: 1.2em; text-decoration: underline rgba(0, 255, 0, 0.5)">HERE</a> to view complete details. <br><br>
     <span style="color: green; font-weight: bold">Don't</span> share your personal details with anyone.<br>
     Our customer service team will <span style="color: green; font-weight: bold">never</span> ask you for your password, OTP, credit card, or banking info.
 </div>

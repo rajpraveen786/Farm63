@@ -34,7 +34,6 @@
                         <span class="text-success"> You save Rs. {{ $data->fpricebefdis-$data->fpricewtas }}</span>
                         @endif
                     </div>
-
                     <pagesproducts :data="{{ json_encode($data) }}" :enablestsock="{{ $data->stock > 0 || ($data->oosc) ? 1 : 0 }}"  :link="{{ json_encode(env('APP_URL')) }}"></pagesproducts>
                 </div>
                 @if($data->stock>0 || $data->oosc)

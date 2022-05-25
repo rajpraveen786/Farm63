@@ -29,6 +29,6 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order Shipped')->markdown('emails.orders.shipped');
+        return $this->subject('Order Shipped - '.$this->data->invno)->markdown('emails.orders.shipped');
     }
 }

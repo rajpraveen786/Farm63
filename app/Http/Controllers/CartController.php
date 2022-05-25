@@ -314,7 +314,7 @@ class CartController extends Controller
         session(['cart'=>[]]);
         // \Slack::to('#farm63')->send('New Order - #'.$data->id);
         Cart::whereIn('pid', $id)->where('uid', $data->uid)->delete();
-        Mail::to($data->customer->email)->send(new NewOrder($data));
+        // Mail::to($data->customer->email)->send(new NewOrder($data));
 
         if ($data->paytype == 1) {
             return redirect('/profile/orders/' . encrypt($data->id));

@@ -1,6 +1,6 @@
 <template>
   <div class="container py-3">
-          <form
+    <form
       action="/profile/cart/checkout"
       method="POST"
       class="forms-"
@@ -21,7 +21,7 @@
       <input type="hidden" name="taxp" :value="[data.taxp]" />
       <input type="hidden" name="weight" :value="[data.weight]" />
       <input type="hidden" name="length" :value="[data.length]" />
-      <input type="hidden" name="breadth" :value="[ data.breadth]" />
+      <input type="hidden" name="breadth" :value="[data.breadth]" />
       <input type="hidden" name="width" :value="[data.width]" />
       <input type="hidden" name="weighttotal" :value="weighttotal" />
       <input type="hidden" name="qtotal" :value="qtotal" />
@@ -30,26 +30,44 @@
       <input type="hidden" name="nettotal" :value="nettotal" />
     </form>
     <div class="btn-group btn-group-toggle prod-qua mt-2" data-toggle="buttons">
-      <button
-        v-on:click="changeval(-1)"
-        class="no-foc btn product-decrement-quantity">-</button>
-      <input v-model="qty" type="button" name="options" value="0" class="no-foc btn quantity" />
-      <button
-        v-on:click="changeval(1)"
-        class="no-foc btn product-decrement-quantity">+</button>
+      <button v-on:click="changeval(-1)" class="no-foc btn product-decrement-quantity">
+        -
+      </button>
+      <input
+        v-model="qty"
+        type="button"
+        name="options"
+        value="0"
+        class="no-foc btn quantity"
+      />
+      <button v-on:click="changeval(1)" class="no-foc btn product-decrement-quantity">
+        +
+      </button>
     </div>
     <div class="btn-group mt-2" role="group" aria-label="BUY">
-        <button v-on:click="addtocart" type="button" class="btn mx-1 btn btn-danger rounded-pill px-3">
-            <i class="fas fa-shopping-cart mr-md-2"></i><span class="small"> Add to Cart </span>
-        </button>
-        <button v-on:click="buynow" type="button" class="btn mx-1 btn-danger rounded-pill px-3">
-            <i class="fas fa-shopping-bag mr-2"></i><span class="small"> Buy Now </span>
-        </button>
+      <button
+        v-on:click="addtocart"
+        type="button"
+        class="btn mx-1 btn btn-danger rounded-pill px-3"
+      >
+        <i class="fas fa-shopping-cart mr-md-2"></i
+        ><span class="small"> Add to Cart </span>
+      </button>
+      <button
+        v-on:click="buynow"
+        type="button"
+        class="btn mx-1 btn-danger rounded-pill px-3"
+      >
+        <i class="fas fa-shopping-bag mr-2"></i><span class="small"> Buy Now </span>
+      </button>
     </div>
 
     <div class="mt-2">
-      <button v-on:click="wishlist" class="btn btn-light rounded-pill mx-1 text-muted small">
-        <i class="fas fa-heart"></i>  <span class="small"> Add to Wishlist </span>
+      <button
+        v-on:click="wishlist"
+        class="btn btn-light rounded-pill mx-1 text-muted small"
+      >
+        <i class="fas fa-heart"></i> <span class="small"> Add to Wishlist </span>
       </button>
       <a
         class="btn mx-1 rounded-pill btn-light text-muted small"
@@ -57,7 +75,7 @@
           'mailto:?&amp;subject=Check%20this%20Product&body=Check%20out%20this%20product%20.' +
           link +
           '/products/' +
-          data.name
+          data.urlslug
         "
         target="_blank"
         ><i class="fas fa-at mr-1"></i> <span class="small"> Email to a friend </span></a
@@ -85,12 +103,12 @@ export default {
       mrptotal: 0,
       discounttotal: 0,
       qtotal: 0,
-      weighttotal:0,
+      weighttotal: 0,
       nettotal: 0,
     };
   },
   mounted() {
-      this.calctotal()
+    this.calctotal();
   },
   methods: {
     changeselected(val) {
@@ -99,98 +117,86 @@ export default {
     changeval(val) {
       if (this.qty + val > 0 && this.qty + val < 12) {
         this.qty += val;
-        this.calctotal()
+        this.calctotal();
       }
     },
     addtocart() {
-    //   if (this.user) {
-        var self = this;
-        axios
-          .post("/cart/new", {
-            // uid: this.user.id,
-            pid: this.data.id,
-            qty: this.qty,
-          })
-          .then((res) => {
+      //   if (this.user) {
+      var self = this;
+      axios
+        .post("/cart/new", {
+          // uid: this.user.id,
+          pid: this.data.id,
+          qty: this.qty,
+        })
+        .then((res) => {
+          Vue.swal({
+            title: res.data.title,
+            text: res.data.message,
+            icon: res.data.success ? "success" : "error",
+          });
+          self.qty = 1;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      //   } else {
+      //     Vue.swal.fire({
+      //       icon: "error",
+      //       title: "Login...",
+      //       text: "Please Login to Proceed",
+      //       footer: '<a href="/login" style="color:blue">Please click to Login?</a>',
+      //     });
+      //   }
+      document.getElementById("cartcount").innerHTML = res.data.count ?? 0;
+    },
+    wishlist() {
+      //   if (this.user) {
+      var self = this;
+      axios
+        .post("/profile/wishlist/new", {
+          // uid: this.user.id,
+          pid: this.data.id,
+        })
+        .then((res) => {
+          document.getElementById('wishcount').innerHTML=res.data.count ;
             Vue.swal({
                 title: res.data.title,
                 text: res.data.message,
                 icon: res.data.success ? "success" : "error",
               });
-            self.qty = 1;
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    //   } else {
-    //     Vue.swal.fire({
-    //       icon: "error",
-    //       title: "Login...",
-    //       text: "Please Login to Proceed",
-    //       footer: '<a href="/login" style="color:blue">Please click to Login?</a>',
-    //     });
-    //   }
-                  document.getElementById('cartcount').innerHTML=res.data.count??0;
 
-    },
-    wishlist() {
-    //   if (this.user) {
-        var self = this;
-        axios
-          .post("/profile/wishlist/new", {
-            // uid: this.user.id,
-            pid: this.data.id,
-          })
-          .then((res) => {
-            if (res.data == 1) {
-              self.qty = 1;
-              Vue.swal({
-                title: "Hurrey",
-                text: "Added to Cart Successfully.",
-                icon: "success",
-              });
-            } else if (res.data == 2) {
-              self.qty = 1;
-              Vue.swal({
-                title: "Oopss",
-                text: "Product is already present in wishlist",
-                icon: "error",
-              });
-              document.getElementById('wishcount').innerHTML=res.data.count;
-            }
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    //   } else {
-    //     Vue.swal.fire({
-    //       icon: "error",
-    //       title: "Login...",
-    //       text: "Please Login to Proceed",
-    //       footer: '<a href="/login" style="color:blue">Please click to Login?</a>',
-    //     });
-    //   }
-
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      //   } else {
+      //     Vue.swal.fire({
+      //       icon: "error",
+      //       title: "Login...",
+      //       text: "Please Login to Proceed",
+      //       footer: '<a href="/login" style="color:blue">Please click to Login?</a>',
+      //     });
+      //   }
     },
     calctotal() {
+      var temp = this.data.fpricewtas;
+      if (this.data.fpricebefdis) {
+        var discount = (this.data.fpricebefdis - this.data.fpricewtas) * this.qty;
+      } else {
+        var discount = 0;
+      }
 
-        var temp = this.data.fpricewtas;
-        if (this.data.fpricebefdis) {
-          var discount = (this.data.fpricebefdis - this.data.fpricewtas) * this.qty
-        } else {
-          var discount = 0;
-        }
+      this.weighttotal = this.data.weight * this.qty;
+      var mrp = temp * this.qty;
 
-        this.weighttotal=this.data.weight*this.qty
-        var mrp = temp * this.qty
-
-        this.qtotal = mrp;
-        this.mrptotal = mrp;
-        this.discounttotal = discount;
-        this.nettotal = mrp;
+      this.qtotal = mrp;
+      this.mrptotal = mrp;
+      this.discounttotal = discount;
+      this.nettotal = mrp;
     },
     buynow() {
-        document.getElementById('checkout').submit()
+      document.getElementById("checkout").submit();
     },
   },
 };

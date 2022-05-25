@@ -74,6 +74,7 @@ class ProductsController extends Controller
                 'scid' => 'nullable',
                 'bid' => 'nullable',
                 'uomid' => 'nullable',
+                'type' => 'nullable|numeric',
 
                 'name' => 'required|max:255',
                 'desc' => 'nullable',
@@ -152,6 +153,7 @@ class ProductsController extends Controller
 
             $data = new Products;
             $data->bid = $request->bid ?? 0;
+            $data->type = $request->type ?? 0;
             $data->cid = $request->cid ?? 0;
             $data->scid = $request->scid ?? 0;
             $data->uomid = $request->uomid ?? 0;
@@ -397,6 +399,7 @@ class ProductsController extends Controller
             $data->bid = $request->bid ?? 0;
             $data->cid = $request->cid ?? 0;
             $data->scid = $request->scid ?? 0;
+            $data->type = $request->type ?? 0;
             $data->packingid = $request->packingid ?? 0;
             $data->uomid = $request->uomid ?? 0;
 

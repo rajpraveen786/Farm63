@@ -165,7 +165,6 @@ trait AuthenticatesUsers
                 $data = new WishList;
                 $data->uid =$user->id;
                 $data->pid = $xdata[$i];
-                $data->qty = 1;
                 $data->save();
             }
         }

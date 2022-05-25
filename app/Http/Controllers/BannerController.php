@@ -36,7 +36,7 @@ class BannerController extends Controller
     {
         $category = Category::select('id', 'name')->get();
         $brand = Brand::select('id', 'name')->get();
-        $products = Products::select('id', 'name')->get();
+        $products = Products::select('id', 'name','urlslug')->get();
         return view('Admin.Banner/add', [
             'category' => $category,
             'brand' => $brand,
@@ -114,7 +114,7 @@ class BannerController extends Controller
         $data = Banner::find(decrypt($id));
         $category = Category::select('id', 'name')->get();
         $brand = Brand::select('id', 'name')->get();
-        $products = Products::select('id', 'name')->get();
+        $products = Products::select('id', 'name','urlslug')->get();
         return view('Admin.Banner/edit', [
             'data' => $data,
             'category' => $category,

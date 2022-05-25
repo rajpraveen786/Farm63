@@ -65,7 +65,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['prefix' => 'wishlist'], function () {
             Route::post('/', 'Api\V1\BasicController@wishlist');
-            Route::post('/new', 'WishListController@store');
+            Route::post('/new', 'Api\V1\BasicController@wishliststore');
             Route::post('/delete', 'WishListController@destroy');
         });
         Route::group(['prefix' => 'orders'], function () {

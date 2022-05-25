@@ -203,6 +203,9 @@
                         <a href="/topselling" class="nav-link">Top Selling</a>
                     </li>
                     <li class="nav-item">
+                        <a href="/comboproducts" class="nav-link">Combo Products</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="/trendingproducts" class="nav-link">Trending Products</a>
                     </li>
                     @if ($categorieslist->count() > 0)
@@ -342,6 +345,9 @@
                         <h6 class="font-weight-bold font-prim color-prim">Shop By</h6>
                         <ul class="navbar-nav">
                             <li class="nav-item">
+                                <a href="/comboproducts" class="nav-link">Combo Products</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/newproducts" class="nav-link">New Products</a>
                             </li>
                             <li class="nav-item">
@@ -356,6 +362,7 @@
                             <li class="nav-item">
                                 <a href="/category" class="nav-link">Category</a>
                             </li>
+
                             {{-- <li class="nav-item">
                                 <a href="/brand" class="nav-link">Brand</a>
                             </li> --}}

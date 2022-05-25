@@ -29,6 +29,6 @@ class OrderCancelled extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order Cancelled')->markdown('emails.orders.cancelled');
+        return $this->subject('Order Cancelled - '.$this->data->invno)->markdown('emails.orders.cancelled');
     }
 }
